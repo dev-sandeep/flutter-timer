@@ -56,9 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void startSessionClickHandher(){
     //basic validation
-    if(examNameController.text != '' || examQuestionsController.text != '' || examTimeController.text != ''){
-      
-    }else{
+    
+    if(examNameController.text.isEmpty || examQuestionsController.text.isEmpty || examTimeController.text.isEmpty){
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => const Alert(title: "Error Occurred", desc: "All fields are mandatory")
@@ -122,7 +121,6 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: startSessionClickHandher,
             child: const Text('Start Session ', style: TextStyle(fontSize: 20)),
             style: ElevatedButton.styleFrom(
-                // padding: EdgeInsets.all(50.0),
                 minimumSize: const Size.fromHeight(50),
                 side: BorderSide(
                   width: 1.0,
