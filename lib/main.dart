@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/forms/TextFieldForm.dart';
+import 'package:my_app/forms/Alert.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,9 +55,15 @@ class _MyHomePageState extends State<MyHomePage> {
   final examTimeController = TextEditingController();
 
   void startSessionClickHandher(){
-    print(examNameController.text);
-    print(examQuestionsController.text);
-    print(examTimeController.text);
+    //basic validation
+    if(examNameController.text != '' || examQuestionsController.text != '' || examTimeController.text != ''){
+      
+    }else{
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => const Alert(title: "Error Occurred", desc: "All fields are mandatory")
+      );
+    }
   }
 
   @override
