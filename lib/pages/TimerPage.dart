@@ -1,4 +1,6 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:my_app/utils/TableWidget.dart';
 
 class TimerPage extends StatelessWidget {
   const TimerPage({super.key});
@@ -22,32 +24,8 @@ class TimerPage extends StatelessWidget {
                   textAlign: TextAlign.center, style: TextStyle(fontSize: 60)),
             ),
             Container(
-              padding: EdgeInsets.all(20.0),
-              child: Table(
-                border: TableBorder.all(color: Colors.black),
-                children: const [
-                  TableRow(children: [
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text('Cell1'),
-                    ),
-                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text('Cell2'),
-                    ),
-                  ]),
-                  TableRow(children: [
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text('Cell11'),
-                    ),
-                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text('Cell12'),
-                    ),
-                  ])
-                ],
-              ),
+              padding: const EdgeInsets.all(20.0),
+              child: const TableWidget(data: [])
             )
           ],
         ),
