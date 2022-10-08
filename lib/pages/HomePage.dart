@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/forms/TextFieldForm.dart';
-import 'package:my_app/forms/Alert.dart';
+import 'package:my_app/utils/TextFieldForm.dart';
+import 'package:my_app/utils/Alert.dart';
+import 'package:my_app/pages/TimerPage.dart';
 
 class HomePage extends StatelessWidget {
   
@@ -20,6 +21,8 @@ class HomePage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) => const Alert(title: "Error Occurred", desc: "All fields are mandatory")
       );
+    }else{
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>const TimerPage()));
     }
   }
 
@@ -32,9 +35,9 @@ class HomePage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Container(
+            padding: const EdgeInsets.all(20.0),
             child: const Text('Information about this session',
                 style: TextStyle(fontSize: 40)),
-            padding: EdgeInsets.all(20.0),
           ),
           Flexible(
               child: Row(
@@ -74,15 +77,14 @@ class HomePage extends StatelessWidget {
       ),
       persistentFooterButtons: <Widget>[
         SizedBox(
-          // width: MediaQuery.of(context).size.width,
           child: ElevatedButton(
             onPressed: ()=>startSessionClickHandher(context),
-            child: const Text('Start Session ', style: TextStyle(fontSize: 20)),
             style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
-                side: BorderSide(
+                side: const BorderSide(
                   width: 1.0,
                 )),
+            child: const Text('Start Session ', style: TextStyle(fontSize: 20)),
           ),
         )
       ],
