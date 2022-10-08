@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/utils/TableWidget.dart';
 import 'package:my_app/utils/Utility.dart';
 import 'package:my_app/utils/Alert.dart';
+import 'package:my_app/utils/BackBtnWidget.dart';
 import 'dart:async';
 
 
@@ -17,11 +18,16 @@ class TimerPageState extends StatefulWidget {
 class TimerPage extends State<TimerPageState> {
   var startTimerFn = Utility.startTimer;
   final totalTime = 30;
-  var lastSavedTime, timerText;
+  var lastSavedTime, timerText, timerInstance;
   List<int> saveTimeArray = [];
 
+  backNavHandler(){
+    setState(() {
+        timerInstance.cancel();  
+    });
+  } 
+
   cancelCallback(){
-    print("over");
     setState(() {
       timerText = 0;
     });
@@ -30,7 +36,6 @@ class TimerPage extends State<TimerPageState> {
   decerementCallback(count, timerInstance){
     setState(() {
         timerText = count;
-        timerInstance = timerInstance;
     });
   }
 
@@ -53,14 +58,15 @@ class TimerPage extends State<TimerPageState> {
   void initState(){
     super.initState();
     timerText = totalTime;
-    Utility.startTimer(totalTime, cancelCallback, decerementCallback);
+    timerInstance = Utility.startTimer(totalTime, cancelCallback, decerementCallback);
 
     lastSavedTime = totalTime;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BackBtnWidget(
+      childWidget: Scaffold(
         appBar: AppBar(
           title: const Text('Competitive Timer'),
         ),
@@ -94,6 +100,9 @@ class TimerPage extends State<TimerPageState> {
                   const Text('Question Done', style: TextStyle(fontSize: 20)),
             ),
           )
-        ]);
+        ]),
+        callback: ()=>{ backNavHandler() },
+    );
+    
   }
 }

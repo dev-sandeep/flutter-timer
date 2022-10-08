@@ -2,7 +2,7 @@ import 'dart:async';
 
 class Utility {
 
-  static void startTimer(int totalTime, cancelCallBackFn, decrementCallBackFn) {
+  static Timer startTimer(int totalTime, cancelCallBackFn, decrementCallBackFn) {
     Timer timer;
     int start = totalTime;
     const oneSec = Duration(seconds: 1);
@@ -18,5 +18,7 @@ class Utility {
         }
       },
     );
+
+    return timer;
   }
 }
