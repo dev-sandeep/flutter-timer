@@ -1,6 +1,3 @@
-// ignore: file_names
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class TableWidget extends StatelessWidget {
@@ -9,31 +6,21 @@ class TableWidget extends StatelessWidget {
       required this.data
     });
 
-    final List<String> data;
+    final List<int> data;
 
   @override
   Widget build(BuildContext context) {
     return Table(
       border: TableBorder.all(color: Colors.black),
-      children: const [
-        TableRow(children: [
+      children: [
+        for(var i = 0; i < data.length; i++) TableRow(children: [
           Padding(
-            padding: EdgeInsets.all(10),
-            child: Text('Cell1'),
+            padding: const EdgeInsets.all(10),
+            child: Text('Question ${i+1}'),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
-            child: Text('Cell21'),
-          ),
-        ]),
-        TableRow(children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text('Cell11'),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text('Cell12'),
+            padding: const EdgeInsets.all(10),
+            child: Text('${data[i]} Sec.'),
           ),
         ])
       ],

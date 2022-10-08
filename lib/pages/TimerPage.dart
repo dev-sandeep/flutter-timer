@@ -25,7 +25,7 @@ class TimerPage extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(20.0),
-              child: const TableWidget(data: [])
+              child: const TableWidget(data: [26, 56, 12, 45])
             )
           ],
         ),
