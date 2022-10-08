@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
         builder: (BuildContext context) => const Alert(title: "Error Occurred", desc: "All fields are mandatory")
       );
     }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>const TimerPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>const TimerPageState()));
     }
   }
 
