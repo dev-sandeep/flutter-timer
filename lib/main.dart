@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/forms/TextFieldForm.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,17 +49,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final examNameController = TextEditingController();
+  final examQuestionsController = TextEditingController();
+  final examTimeController = TextEditingController();
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  void startSessionClickHandher(){
+    print(examNameController.text);
+    print(examQuestionsController.text);
+    print(examTimeController.text);
   }
 
   @override
@@ -70,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: <Widget>[
           Container(
-            child: const Text('Information about your exam',
+            child: const Text('Information about this session',
                 style: TextStyle(fontSize: 40)),
             padding: EdgeInsets.all(20.0),
           ),
@@ -78,19 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
             children: [
               Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Container(
-                  padding: EdgeInsets.all(20.00),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Type exam name',
-                      labelText: 'Exam Name',
-                      // contentPadding: EdgeInsets.all(20.0)
-                    ),
-                  ),
-                ),
-              ),
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: TextFieldForm(
+                    hintText: 'Type session name',
+                    labelText: 'Session Name',
+                    textController: examNameController,
+                  )),
             ],
           )),
           Flexible(
@@ -99,28 +91,18 @@ class _MyHomePageState extends State<MyHomePage> {
               Flexible(
                 flex: 1,
                 fit: FlexFit.tight,
-                child: Container(
-                  padding: EdgeInsets.all(20.00),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'No. of questions',
-                      labelText: 'Type Questions',
-                      // contentPadding: EdgeInsets.all(20.0)
-                    ),
-                  ),
-                ),
+                child: TextFieldForm(
+                  hintText: 'Total questions',
+                  labelText: 'No. of questions',
+                  textController: examQuestionsController,
+                )
               ),
               Flexible(
-                child: Container(
-                  padding: EdgeInsets.all(20.00),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Total Time',
-                      labelText: 'Type total timer',
-                      // contentPadding: EdgeInsets.all(20.0)
-                    ),
-                  ),
-                ),
+                child: TextFieldForm(
+                  hintText: 'Total time',
+                  labelText: 'Time in minutes',
+                  textController: examTimeController,
+                )
               ),
             ],
           )),
@@ -130,15 +112,15 @@ class _MyHomePageState extends State<MyHomePage> {
         SizedBox(
           // width: MediaQuery.of(context).size.width,
           child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Start!', style: TextStyle(fontSize: 20)),
-                style: ElevatedButton.styleFrom(
-                  // padding: EdgeInsets.all(50.0),
-                    minimumSize: const Size.fromHeight(50),
-                    side: BorderSide(
+            onPressed: startSessionClickHandher,
+            child: const Text('Start Session ', style: TextStyle(fontSize: 20)),
+            style: ElevatedButton.styleFrom(
+                // padding: EdgeInsets.all(50.0),
+                minimumSize: const Size.fromHeight(50),
+                side: BorderSide(
                   width: 1.0,
                 )),
-              ),
+          ),
         )
       ],
     );
