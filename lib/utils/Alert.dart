@@ -5,10 +5,19 @@ class Alert extends StatelessWidget {
     super.key,
     required this.title,
     required this.desc,
+    this.proceed
   });
 
   final String title;
   final String desc;
+  final VoidCallback? proceed; // nullable and optional
+
+  onProceedHandler(context){
+    Navigator.pop(context, 'OK');
+    if(proceed != null){
+      return proceed!();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +25,12 @@ class Alert extends StatelessWidget {
       title: Text(title),
       content: Text(desc),
       actions: <Widget>[
+        // TextButton(
+        //   onPressed: () => Navigator.pop(context, 'Cancel'),
+        //   child: const Text('Cancel'),
+        // ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'Cancel'),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
+          onPressed: () => {onProceedHandler(context)},
           child: const Text('OK'),
         ),
       ],

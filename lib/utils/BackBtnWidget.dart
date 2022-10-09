@@ -8,6 +8,6 @@ class BackBtnWidget extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(child: childWidget, onWillPop: () async {callback(); return true;});
+    return WillPopScope(child: childWidget, onWillPop: () async {callback(); return false;});
   }
 }
