@@ -1,8 +1,8 @@
 import 'dart:async';
 
 class Utility {
-
-  static Timer startTimer(int totalTime, cancelCallBackFn, decrementCallBackFn) {
+  static Timer startTimer(
+      int totalTime, cancelCallBackFn, decrementCallBackFn) {
     Timer timer;
     int start = totalTime;
     const oneSec = Duration(seconds: 1);
@@ -20,5 +20,12 @@ class Utility {
     );
 
     return timer;
+  }
+
+  static bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
   }
 }

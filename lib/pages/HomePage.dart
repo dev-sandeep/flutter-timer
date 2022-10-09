@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/utils/TextFieldForm.dart';
 import 'package:my_app/utils/Alert.dart';
 import 'package:my_app/pages/TimerPage.dart';
+import 'package:my_app/utils/Utility.dart';
 
 class HomePage extends StatelessWidget {
   
@@ -15,14 +16,22 @@ class HomePage extends StatelessWidget {
 
   void startSessionClickHandher(BuildContext context){
     //basic validation
-    
     if(examNameController.text.isEmpty || examQuestionsController.text.isEmpty || examTimeController.text.isEmpty){
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => const Alert(title: "Error Occurred", desc: "All fields are mandatory")
       );
-    }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>const TimerPageState()));
+    } else if(!Utility.isNumeric(examQuestionsController.text) || !Utility.isNumeric(examTimeController.text)){
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => const Alert(title: "Error Occurred", desc: "No. of questions and total time need to be numeric")
+      );
+    }
+    else if(!examNameController.text.isEmpty && examQuestionsController.text != null && examTimeController.text != null){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> TimerPageState(
+        totalQuestion: int.parse(examQuestionsController.text) ,
+        totalTimeParam: int.parse(examTimeController.text)*60,
+      )));
     }
   }
 

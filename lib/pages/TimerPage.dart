@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:my_app/utils/TableWidget.dart';
 import 'package:my_app/utils/Utility.dart';
 import 'package:my_app/utils/Alert.dart';
+import 'package:my_app/utils/ConfirmDialogWidget.dart';
 import 'package:my_app/utils/BackBtnWidget.dart';
 import 'package:my_app/pages/HomePage.dart';
 import 'dart:async';
 
 class TimerPageState extends StatefulWidget {
-  const TimerPageState({super.key});
+  const TimerPageState({super.key, required this.totalTimeParam, required this.totalQuestion});
+
+  final int totalTimeParam;
+  final int totalQuestion;
 
   @override
   TimerPage createState() => TimerPage();
@@ -16,7 +20,7 @@ class TimerPageState extends StatefulWidget {
 
 class TimerPage extends State<TimerPageState> {
   var startTimerFn = Utility.startTimer;
-  final totalTime = 30;
+
   var lastSavedTime, timerText, timerInstance;
   List<int> saveTimeArray = [];
 
@@ -27,7 +31,7 @@ class TimerPage extends State<TimerPageState> {
   }
 
   backNavHandler(buildContext) {
-
+    print(timerText);
     if (timerText > 0) {
       showDialog<String>(
         context: buildContext,
@@ -54,6 +58,8 @@ class TimerPage extends State<TimerPageState> {
           );
         },
       );
+    }else{
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
     }
   }
 
@@ -72,9 +78,23 @@ class TimerPage extends State<TimerPageState> {
   nextQuestionHandler() {
     setState(() {
       if (timerText > 0) {
-        var elapsedTime = lastSavedTime - timerText;
-        lastSavedTime = timerText;
-        saveTimeArray.add(elapsedTime);
+
+        //check if there are any pending questions
+        if( saveTimeArray.length+1 > widget.totalQuestion){
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => const Alert(
+                title: "All question are complete", desc: "Please re-start the session"));
+        }else{
+          var elapsedTime = lastSavedTime - timerText;
+          lastSavedTime = timerText;
+          saveTimeArray.add(elapsedTime);
+
+          if(saveTimeArray.length == widget.totalQuestion){
+            // stop the timer
+            cancelTimer();
+          }
+        }
       } else {
         showDialog<String>(
             context: context,
@@ -87,11 +107,11 @@ class TimerPage extends State<TimerPageState> {
   @override
   void initState() {
     super.initState();
-    timerText = totalTime;
+    timerText = widget.totalTimeParam;
     timerInstance =
-        Utility.startTimer(totalTime, cancelCallback, decerementCallback);
+        Utility.startTimer(widget.totalTimeParam, cancelCallback, decerementCallback);
 
-    lastSavedTime = totalTime;
+    lastSavedTime = widget.totalTimeParam;
   }
 
   @override
